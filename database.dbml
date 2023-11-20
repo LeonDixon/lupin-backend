@@ -1,0 +1,26 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Project lupin {
+  database_type: 'PostgreSQL'
+  Note: 'Password managment application'
+}
+
+Table users {
+  id int [pk, increment] // primary key
+  username varchar
+  email varchar [unique]
+  hashed_password varchar // storing hashed passwords for security
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table passwords {
+  id int [pk, increment] // primary key
+  user_id int [ref: > users.id] // foreign key to users table
+  website varchar // the website or application the password is for
+  username varchar // username or email associated with this password
+  encrypted_password varchar // storing encrypted passwords
+  created_at timestamp
+  updated_at timestamp
+}
